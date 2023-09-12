@@ -3,6 +3,7 @@ import os
 import base64
 from requests import post
 import json
+
 load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
@@ -24,6 +25,7 @@ def get_token():
     json_result = json.loads(result.content)
     token = json_result["access_token"]
     return token
+
 
 token = get_token()
 print(token)
