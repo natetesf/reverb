@@ -3,12 +3,23 @@ import os
 import base64
 from requests import post, get
 import json
-
+from flask import flask, render_template
 load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    message = "Hello from Python!"
+    return render_template('main.html', message=message)
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 def get_token():
     auth_string = client_id + ":" + client_secret
@@ -32,7 +43,7 @@ def get_auth_header(token):
 def search_for_artist(token, artist_name):
     url = "https://api.spotify.com/v1/search"
     headers = get_auth_header(token)
-    query = f"?q={artist_name}&type=artist&limit=3"
+    query = f"?q={artist_name}&type=artist&limit=1"
 
     query_url = url + query
     result = get(query_url, headers=headers)
@@ -50,12 +61,26 @@ def get_songs_by_artist(token, artist_id):
     json_result = json.loads(result.content)["tracks"]
     return json_result
 
+def get_albums_by_artist(token, artist_id):
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/albums?country=US"
+    headers = get_auth_header(token)
+    result = get(url, headers = headers)
+    json_result = json.loads(result.content)["items"]
+    return json_result
 
 
 token = get_token()
-result = search_for_artist(token, "Beach House")
+result = search_for_artist(token, "Drake")
+
 print(result["name"])
 artist_id = result["id"]
 
-for idx, song in enumerate(songs):
-    print(f"{idx + 1}. {song['name']}")
+albums = get_albums_by_artist(token, artist_id)
+#print(albums)
+for idx, album in enumerate(albums):
+    print(f"{idx + 1}. {album['name']}")
+
+# songs = get_songs_by_artist(token, artist_id)
+# print (songs)
+# for idx, song in enumerate(songs):
+#     print(f"{idx + 1}. {song['name']}")

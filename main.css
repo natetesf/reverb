@@ -1,0 +1,14 @@
+body, h1, h2, p 
+{
+    background-color: #192970;
+    font-family: "Roboto", sans-serif;
+    color: white
+}
+
+
+.wrapper {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: auto;
+}
