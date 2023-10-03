@@ -3,23 +3,11 @@ import os
 import base64
 from requests import post, get
 import json
-from flask import flask, render_template
 load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 
-from flask import Flask, render_template
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    message = "Hello from Python!"
-    return render_template('main.html', message=message)
-
-if __name__ == '__main__':
-    app.run(debug=True)
 
 def get_token():
     auth_string = client_id + ":" + client_secret
@@ -70,8 +58,9 @@ def get_albums_by_artist(token, artist_id):
 
 
 token = get_token()
-result = search_for_artist(token, "Drake")
+search_ = input("Search for an artist: \n")
 
+result = search_for_artist(token, search_)
 print(result["name"])
 artist_id = result["id"]
 
