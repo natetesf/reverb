@@ -1,8 +1,8 @@
 body, h1, h2, p 
 {
-    background-color: #192970;
+    background-color: #000000;
     font-family: "Roboto", sans-serif;
-    color: white
+    color: rgb(216, 216, 216)
 }
 
 
