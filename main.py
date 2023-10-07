@@ -69,7 +69,3 @@ albums = get_albums_by_artist(token, artist_id)
 for idx, album in enumerate(albums):
     print(f"{idx + 1}. {album['name']}")
 
-# songs = get_songs_by_artist(token, artist_id)
-# print (songs)
-# for idx, song in enumerate(songs):
-#     print(f"{idx + 1}. {song['name']}")
